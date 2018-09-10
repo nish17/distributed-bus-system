@@ -16,4 +16,9 @@ contract System{
         return uint(keccak256(block.difficulty, now, count));
         
     }
+
+    function getTicket() public{
+        /* returns all the details of the ticket including token number */
+    }
+
 }
