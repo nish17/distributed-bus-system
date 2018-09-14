@@ -2,17 +2,27 @@ pragma solidity^0.4.24;
 
 contract System{
 
+    struct Ticket{
+        string token;
+        string fromPlace;
+        string toPlace;
+        uint price;
+    }
     address public admin;
     uint public count=0;
     uint priceOfTicket = 2;
+    
     constructor() public{
         admin = msg.sender;
         count++;
     }
 
-    function generateTokenNumber() public returns(uint) { 
+    function getTicket() public returns(Ticket) { 
         /* returns unique ticket token number */
-        return uint(keccak256(block.difficulty, now, count));
+        return Ticket({token: uint(keccak256(block.difficulty, now, count)), 
+        fromPlace: 'A', 
+        toPlace: "B", 
+        price: 100});
         
     }
 
