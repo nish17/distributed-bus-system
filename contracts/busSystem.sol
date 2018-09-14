@@ -10,15 +10,21 @@ contract System{
         count++;
     }
 
-    function generateTokenNumber() public payable returns(uint) { 
-        /* returns ticket token number */
-        require(msg.value > priceOfTicket);
+    function generateTokenNumber() public returns(uint) { 
+        /* returns unique ticket token number */
         return uint(keccak256(block.difficulty, now, count));
         
     }
 
-    function getTicket() public{
-        /* returns all the details of the ticket including token number */
+    function getTicket() public payable{
+        /* returns all the details of the ticket including token number in one object*/
+        require(msg.value > priceOfTicket);
+
+    }
+
+    function verifyToken() public view returns(bool){
+    /* a function to verify token */
+        // return 
     }
 
 }
