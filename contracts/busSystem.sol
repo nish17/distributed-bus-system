@@ -16,7 +16,7 @@ contract System{
         count++;
     }
     function generateToken() public payable { 
-        /* returns unique ticket token number */
+        /* generates unique ticket token number */
         if(msg.value == priceOfTicket){
             token = keccak256(abi.encodePacked(block.timestamp, block.difficulty,count));  /* used to creating a random number */
             emit SenderLogger(msg.sender);      /* Logs sender's address */
