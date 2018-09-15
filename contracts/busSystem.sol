@@ -8,17 +8,10 @@ contract System{
     address private admin;
     uint public count=0;
     uint priceOfTicket = 2;
+    bytes32  token;
     
-    struct Ticket{
-        bytes32  token;
-        string  fromPlace;
-        string  toPlace;
-        uint price;
-    }
-
     constructor() public{
         admin = msg.sender;
-        // Ticket storage newTicket;
         count++;
     }
 
@@ -26,24 +19,14 @@ contract System{
     //     require(admin == msg.sender);
     //     _;
     // }
-
-
-    function getTicket() public payable returns(Ticket) { 
+    function getToken() public payable returns(bytes32) { 
         /* returns unique ticket token number */
-        Ticket storage newTicket = {
-            token:keccak256(abi.encodePacked(block.timestamp, block.difficulty,count)),
-            fromPlace: 'A',
-            toPlace: 'B',
-            price: 10
-        };
-        emit SenderLogger(msg.sender);
-        emit ValueLogger(msg.value);
-        // return newTicket({token: uint(keccak256(block.difficulty, now, count)), 
-        // fromPlace: 'A', 
-        // toPlace: "B", 
-        // price: 100});
-
-        // newTicket.token = keccak256(abi.encodePacked(block.timestamp, block.difficulty,count));
+        if(msg.value == 10 ether){
+            token = keccak256(abi.encodePacked(block.timestamp, block.difficulty,count));
+            emit SenderLogger(msg.sender);
+            emit ValueLogger(msg.value);
+            return token;
+        }
     }
 
     // function getTicket() public payable{
@@ -52,9 +35,9 @@ contract System{
 
     // }
 
-    function verifyToken() public view returns(bool){
-    /* a function to verify token */
-        // return 
-    }
+    // function verifyToken() public view returns(bool){
+    // /* a function to verify token */
+    //     // return 
+    // }
 
 }
