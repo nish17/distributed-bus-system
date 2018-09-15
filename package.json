@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "compile": "./node_modules/.bin/solcjs contracts/busSystem.sol --abi"
   },
   "keywords": [
     "BlockChain"
@@ -15,6 +16,7 @@
   "author": "Nimesh Solanki",
   "license": "MIT",
   "dependencies": {
+    "artifacts": "0.0.1",
     "ganache-cli": "^6.1.8",
     "mocha": "^5.2.0",
     "solc": "^0.4.24",
