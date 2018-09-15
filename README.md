@@ -2,4 +2,4 @@
 
 ## To compile the smart contract
 
-### In the terminal type, $`yarn compile`
+### In the terminal type, $`yarn compile` or $`npm run compile`
