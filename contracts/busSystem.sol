@@ -2,10 +2,18 @@ pragma solidity^0.4.24;
 
 contract System{
 
+    event SenderLogger(address);
+    event ValueLogger(uint); 
+
+    function () payable{
+        SenderLogger(msg.sender);
+        ValueLogger(msg.value);
+    }
+
     struct Ticket{
-        string token;
-        string fromPlace;
-        string toPlace;
+        string  token;
+        string  fromPlace;
+        string  toPlace;
         uint price;
     }
     address public admin;
@@ -17,7 +25,7 @@ contract System{
         count++;
     }
 
-    function getTicket() public returns(Ticket) { 
+    function getTicket() public payable returns(Ticket) { 
         /* returns unique ticket token number */
         return Ticket({token: uint(keccak256(block.difficulty, now, count)), 
         fromPlace: 'A', 
