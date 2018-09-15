@@ -17,10 +17,10 @@ contract System{
     }
     function generateToken() public payable { 
         /* returns unique ticket token number */
-        if(msg.value == 10 ether){
-            token = keccak256(abi.encodePacked(block.timestamp, block.difficulty,count));
-            emit SenderLogger(msg.sender);
-            emit ValueLogger(msg.value);
+        if(msg.value == priceOfTicket){
+            token = keccak256(abi.encodePacked(block.timestamp, block.difficulty,count));  /* used to creating a random number */
+            emit SenderLogger(msg.sender);      /* Logs sender's address */
+            emit ValueLogger(msg.value);        /* Logs the value transferred */    
         }
     }
     function getToken() public view returns(bytes32){
