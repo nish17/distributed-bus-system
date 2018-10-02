@@ -14,12 +14,24 @@ eligible for the completion
 this will take care of the issue when the bus-operator does not complete the trip
 */
 
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.24;
 
 contract RouteCreator{
     address[] public deployedRoutes;
-    function createRoute(string routeID, uint count, bytes32[] description) public{
-        address newRoute = new Route(msg.sender, routeID, count, description);
+    
+        function stringToBytes32(string memory source) private pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+        assembly {
+        result := mload(add(source, 32))
+        }
+    }
+
+    
+    function createRoute(string routeID, uint count, string fromPlace, string toPlace) public{
+        address newRoute = new Route(msg.sender, routeID, count, fromPlace, toPlace);
         deployedRoutes.push(newRoute);
     }
     
@@ -47,7 +59,8 @@ contract Route{
 
     string public routeID;
     uint public busStopCount;
-    bytes32[] public routeDescription;
+    string public routeFrom;
+    string public routeTo;
     address public manager;
     Trip[] public trips;
     Ticket[] public tickets;
@@ -59,11 +72,12 @@ contract Route{
         require(msg.sender==manager);
         _;
     }
-    function Route (address creator, string route, uint count, bytes32[] description) public {
+    constructor (address creator, string route, uint count, string fromPlace, string toPlace) public {
         manager = creator;
         routeID= route;
         busStopCount=count;
-        routeDescription = description;
+        routeFrom = fromPlace;
+        routeTo = toPlace;
     }    
     function createTrip (string description, uint256 dateTime) public restricted {
         Trip memory newTrip = Trip ({
@@ -105,9 +119,9 @@ contract Route{
         require(msg.value>0);
         uint newIndex;
         Ticket memory newTicket = Ticket({
-          travelDescription: description,
-          amount: msg.value,
-          isUsed: false
+            travelDescription: description,
+            amount: msg.value,
+            isUsed: false
         });
         newIndex = tickets.length;
         tickets.push(newTicket);
