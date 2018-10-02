@@ -130,7 +130,7 @@ contract Route{
     }
     function arrival(uint tripIndex, bytes32 busStop, uint256 arrivalTime) public {
         Trip storage trip = trips[tripIndex];
-      	trip.arrivalsTime[busStop] = arrivalTime;
+        trip.arrivalsTime[busStop] = arrivalTime;
         trip.reportedArrivalTimes++;
     }
 }
