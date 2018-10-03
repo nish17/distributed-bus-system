@@ -69,13 +69,13 @@ contract Route{
     uint totalAmount;
 
     modifier restricted(){
-        require(msg.sender == manager);
+        require(msg.sender == manager, "Only Manager is allowed");
         _;
     }
     constructor (address creator, string route, uint count, string fromPlace, string toPlace) public {
         manager = creator;
-        routeID= route;
-        busStopCount=count;
+        routeID = route;
+        busStopCount = count;
         routeFrom = fromPlace;
         routeTo = toPlace;
     }    
@@ -95,28 +95,28 @@ contract Route{
         Ticket storage ticket = tickets[ticketIndex];
         
         // trying to approve trip using a valid ticket
-        require (!ticket.isUsed);
+        require (!ticket.isUsed, "Ticket is already used!");
         // ticket for approval must be submitted by the commuter who purchsed the ticket
-        require (commuter[ticketIndex] == msg.sender);
+        require (commuter[ticketIndex] == msg.sender, "Seems like it is someone else's ticket");
         // trip must not be complete 
-        require(!trip.isComplete);
+        require(!trip.isComplete, "Trip must not be complete");
         trip.approversCount++;
         trip.amount = trip.amount + ticket.amount;
         //can not approve other trip using same ticket
-        ticket.isUsed=true;
+        ticket.isUsed = true;
         trip.approvers[ticketIndex] = true;
     }
     function completeTrip(uint index) public restricted {
         Trip storage trip = trips[index];
-        require(!trip.isComplete);
+        require(!trip.isComplete, "Tip must not complete");
         //trip should have reported at least 80% arrival times
-        require(trip.reportedArrivalTimes >= busStopCount*4/5);
+        require(trip.reportedArrivalTimes >= busStopCount*4/5, "trip should have reported at least 80% arrival times");
         manager.transfer(trip.amount);
-        trip.isComplete=true;
+        trip.isComplete = true;
         totalAmount = totalAmount + trip.amount;
     }
     function purchaseTicket(string description) public payable returns (uint) {
-        require(msg.value>0);
+        require(msg.value>0, "Please pay for the ticket");
         uint newIndex;
         Ticket memory newTicket = Ticket({
             travelDescription: description,
