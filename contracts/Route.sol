@@ -19,7 +19,7 @@ pragma solidity ^0.4.24;
 contract RouteCreator{
     address[] public deployedRoutes;
     
-        function stringToBytes32(string memory source) private pure returns (bytes32 result) {
+    function stringToBytes32(string memory source) private pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
             return 0x0;
@@ -69,7 +69,7 @@ contract Route{
     uint totalAmount;
 
     modifier restricted(){
-        require(msg.sender==manager);
+        require(msg.sender == manager);
         _;
     }
     constructor (address creator, string route, uint count, string fromPlace, string toPlace) public {
