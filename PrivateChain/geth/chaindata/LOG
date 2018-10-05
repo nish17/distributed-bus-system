@@ -1,0 +1,38 @@
+=============== Oct 3, 2018 (IST) ===============
+23:25:53.770926 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+23:25:53.773555 db@open opening
+23:25:53.774479 version@stat F·[] S·0B[] Sc·[]
+23:25:53.777093 db@janitor F·2 G·0
+23:25:53.777117 db@open done T·3.547984ms
+=============== Oct 3, 2018 (IST) ===============
+23:26:50.875657 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+23:26:50.875796 version@stat F·[] S·0B[] Sc·[]
+23:26:50.875808 db@open opening
+23:26:50.875863 journal@recovery F·1
+23:26:50.878279 journal@recovery recovering @1
+23:26:50.880138 memdb@flush created L0@2 N·9 S·550B "Hѡ..L\x87%,v3":"r\x00\x00..L\x87%,v5"
+23:26:50.882453 version@stat F·[1] S·550B[550B] Sc·[0.25]
+23:26:50.887856 db@janitor F·3 G·0
+23:26:50.887892 db@open done T·12.049242ms
+23:33:05.941075 db@close closing
+23:33:05.941257 db@close done T·177.829µs
+=============== Oct 3, 2018 (IST) ===============
+23:33:47.740033 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+23:33:47.740201 version@stat F·[1] S·550B[550B] Sc·[0.25]
+23:33:47.740213 db@open opening
+23:33:47.740255 journal@recovery F·1
+23:33:47.740558 journal@recovery recovering @3
+23:33:47.745180 memdb@flush created L0@5 N·221 S·9KiB "\x0e\xb7\x9f..\xb2\xd2\xe5,v231":"\xc3\xea\xcf..\xa0*\xb1,v230"
+23:33:47.745500 version@stat F·[2] S·10KiB[10KiB] Sc·[0.50]
+23:33:47.749495 db@janitor F·4 G·0
+23:33:47.749523 db@open done T·9.30029ms
+=============== Oct 3, 2018 (IST) ===============
+23:34:46.303265 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+23:34:46.303409 version@stat F·[2] S·10KiB[10KiB] Sc·[0.50]
+23:34:46.303424 db@open opening
+23:34:46.303475 journal@recovery F·1
+23:34:46.307133 journal@recovery recovering @6
+23:34:46.309801 memdb@flush created L0@8 N·1 S·302B "eth..L\x87%,v233":"eth..L\x87%,v233"
+23:34:46.312157 version@stat F·[3] S·10KiB[10KiB] Sc·[0.75]
+23:34:46.317488 db@janitor F·5 G·0
+23:34:46.317527 db@open done T·14.078267ms
