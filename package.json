@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "compile": "./node_modules/.bin/solcjs contracts/busSystem.sol --abi"
+    "compile": "./node_modules/.bin/solcjs contracts/Route.sol --abi"
   },
   "keywords": [
     "BlockChain"
