@@ -58,10 +58,10 @@ contract Route{
         require(msg.sender == manager, "Only Manager is allowed");
         _;
     }
-    function Route (address creator, string route, uint count, bytes32[] description) public {
+    constructor (address creator, string route, uint count, bytes32[] description) public {
         manager = creator;
-        routeID= route;
-        busStopCount=count;
+        routeID = route;
+        busStopCount = count;
         routeDescription = description;
     }    
     function createTrip (string description, uint256 dateTime) public restricted {
@@ -97,7 +97,7 @@ contract Route{
         //trip should have reported at least 80% arrival times
         require(trip.reportedArrivalTimes >= busStopCount*4/5, "trip should have reported at least 80% arrival times");
         manager.transfer(trip.amount);
-        trip.isComplete=true;
+        trip.isComplete = true;
         totalAmount = totalAmount + trip.amount;
     }
     function purchaseTicket(string description) public payable returns (uint) {
