@@ -15,23 +15,10 @@ this will take care of the issue when the bus-operator does not complete the tri
 */
 
 pragma solidity ^0.4.24;
-
 contract RouteCreator{
     address[] public deployedRoutes;
-    
-    function stringToBytes32(string memory source) private pure returns (bytes32 result) {
-        bytes memory tempEmptyStringTest = bytes(source);
-        if (tempEmptyStringTest.length == 0) {
-            return 0x0;
-        }
-        assembly {
-        result := mload(add(source, 32))
-        }
-    }
-
-    
-    function createRoute(string routeID, uint count, string fromPlace, string toPlace) public{
-        address newRoute = new Route(msg.sender, routeID, count, fromPlace, toPlace);
+    function createRoute(string routeID, uint count, bytes32[] description) public{
+        address newRoute = new Route(msg.sender, routeID, count, description);
         deployedRoutes.push(newRoute);
     }
     
@@ -59,8 +46,7 @@ contract Route{
 
     string public routeID;
     uint public busStopCount;
-    string public routeFrom;
-    string public routeTo;
+    bytes32[] public routeDescription;
     address public manager;
     Trip[] public trips;
     Ticket[] public tickets;
@@ -72,12 +58,11 @@ contract Route{
         require(msg.sender == manager, "Only Manager is allowed");
         _;
     }
-    constructor (address creator, string route, uint count, string fromPlace, string toPlace) public {
+    function Route (address creator, string route, uint count, bytes32[] description) public {
         manager = creator;
-        routeID = route;
-        busStopCount = count;
-        routeFrom = fromPlace;
-        routeTo = toPlace;
+        routeID= route;
+        busStopCount=count;
+        routeDescription = description;
     }    
     function createTrip (string description, uint256 dateTime) public restricted {
         Trip memory newTrip = Trip ({
@@ -112,7 +97,7 @@ contract Route{
         //trip should have reported at least 80% arrival times
         require(trip.reportedArrivalTimes >= busStopCount*4/5, "trip should have reported at least 80% arrival times");
         manager.transfer(trip.amount);
-        trip.isComplete = true;
+        trip.isComplete=true;
         totalAmount = totalAmount + trip.amount;
     }
     function purchaseTicket(string description) public payable returns (uint) {
