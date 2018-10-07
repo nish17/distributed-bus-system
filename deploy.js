@@ -16,32 +16,34 @@ const provider = new HDWallerProvider(
 
 const web3 = new Web3(provider);
 
-// const deployRouteCreatorContract = async () => {
-//   const accounts = await web3.eth.getAccounts();
-//   console.log(`Attempting to deploy from account ${accounts[0]}`);
-//   let result;
-//   try {
-//     result = await new web3.eth.Contract(JSON.parse(RCInterface))
-//       .deploy({
-//         data: RCByte
-//       })
-//       .send({ from: accounts[0], gas: "6000000" });
-//   } catch (e) {
-//     console.log(`Something went wrong:: ${e}`);
-//   }
-//   console.log(
-//     `Route has been successfully deployed to ${result.options.address}`
-//   );
-//   fs.appendFile(
-//     "./logs.txt",
-//     `Route Creator Contract deployed to ${result.options.address}`,
-//     err => {
-//       if (err) console.log(`something went wrong while writing into the file`);
-//       else console.log(`Success!`);
-//     }
-//   );
-// };
-// deployRouteCreatorContract();
+const deployRouteCreatorContract = async () => {
+  const accounts = await web3.eth.getAccounts();
+  console.log(`Attempting to deploy from account ${accounts[0]}`);
+  let result;
+  try {
+    result = await new web3.eth.Contract(JSON.parse(RCInterface))
+      .deploy({
+        data: RCByte
+      })
+      .send({ from: accounts[0], gas: "6000000" });
+  } catch (e) {
+    console.log(`Something went wrong:: ${e}`);
+  }
+  console.log(
+    `Route Creator Contract has been successfully deployed to ${
+      result.options.address
+    }`
+  );
+  fs.appendFile(
+    "./logs.txt",
+    `Route Creator Contract deployed to ${result.options.address}\r\n`,
+    err => {
+      if (err) console.log(`something went wrong while writing into the file`);
+      else console.log(`Success!`);
+    }
+  );
+};
+deployRouteCreatorContract();
 
 const deployRouteContract = async () => {
   const accounts = await web3.eth.getAccounts();
@@ -53,14 +55,16 @@ const deployRouteContract = async () => {
         data: RByte,
         arguments: [accounts[0], "r1", 3, ["0x0stop1", "0x0stop2", "0x0stop3"]]
       })
-      .send({ from: accounts[0], gas: "6000000" });
+      .send({ from: accounts[0], gas: "2000000" });
   } catch (e) {
     console.log(`Something went wrong:: ${e}`);
   }
-  console.log(`Route Contract deployed to ${result.options.address}`);
+  console.log(
+    `Route Contract has been successfully deployed to ${result.options.address}`
+  );
   fs.appendFile(
     "./logs.txt",
-    `Route Contract deployed to ${result.options.address}`,
+    `Route Contract deployed to ${result.options.address}\r\n`,
     err => {
       if (err) console.log(`something went wrong while writing into the file`);
       else console.log(`Success!`);
