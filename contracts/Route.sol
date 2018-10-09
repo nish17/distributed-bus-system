@@ -122,4 +122,12 @@ contract Route{
         trip.arrivalsTime[busStop] = arrivalTime;
         trip.reportedArrivalTimes++;
     }
+
+    function getNumberOfTrips() private view returns (Trip[]){
+        return trips;
+    }
+
+    function getNumberOfTickets() private view returns(Ticket[]){
+        return tickets;
+    }
 }
