@@ -39,7 +39,7 @@ const web3 = new Web3(provider);
 //     "./logs.txt",
 //     `Route Creator Contract deployed to ${
 //       result.options.address
-//     } on ${date.toLocaleTimeString()}\r\n`,
+//     } on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}\r\n`,
 //     err => {
 //       if (err) console.log(`something went wrong while writing into the file`);
 //       else console.log(`Success!`);
@@ -78,7 +78,7 @@ const deployRouteContract = async () => {
     "./logs.txt",
     `Route Contract deployed to ${
       result.options.address
-    } on ${date.toLocaleTimeString()}\r\n`,
+    } on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}\r\n`,
     err => {
       if (err) console.log(`something went wrong while writing into the file`);
       else console.log(`Success!`);
