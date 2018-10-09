@@ -44,6 +44,9 @@ contract Route{
         bool isUsed;
     }
 
+    event ValueLogger (
+        uint index
+    );
     string public routeID;
     uint public busStopCount;
     bytes32[] public routeDescription;
@@ -111,6 +114,7 @@ contract Route{
         newIndex = tickets.length;
         tickets.push(newTicket);
         commuter[newIndex] = msg.sender;
+        emit ValueLogger(newIndex);
         return newIndex;
     }
     function arrival(uint tripIndex, bytes32 busStop, uint256 arrivalTime) public {
