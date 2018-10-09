@@ -37,7 +37,9 @@ const web3 = new Web3(provider);
 //   );
 //   fs.appendFile(
 //     "./logs.txt",
-//     `Route Creator Contract deployed to ${result.options.address} on ${date.toLocaleTimeString}\r\n`,
+//     `Route Creator Contract deployed to ${
+//       result.options.address
+//     } on ${date.toLocaleTimeString()}\r\n`,
 //     err => {
 //       if (err) console.log(`something went wrong while writing into the file`);
 //       else console.log(`Success!`);
@@ -74,9 +76,9 @@ const deployRouteContract = async () => {
   );
   fs.appendFile(
     "./logs.txt",
-    `Route Contract deployed to ${result.options.address} on ${
-      date.toLocaleTimeString
-    }\r\n`,
+    `Route Contract deployed to ${
+      result.options.address
+    } on ${date.toLocaleTimeString()}\r\n`,
     err => {
       if (err) console.log(`something went wrong while writing into the file`);
       else console.log(`Success!`);
