@@ -51,6 +51,8 @@ contract Route{
     uint public busStopCount;
     bytes32[] public routeDescription;
     address public manager;
+    uint tripsCount = 0;
+    uint ticketsCount = 0;
     Trip[] public trips;
     Ticket[] public tickets;
     // maps the ticketindex to the commuter
@@ -77,6 +79,7 @@ contract Route{
             reportedArrivalTimes : 0
         });
         trips.push(newTrip);
+        tripsCount = tripsCount + 1; 
     }
     function approveTrip(uint tripIndex, uint ticketIndex) public {
         Trip storage trip = trips[tripIndex];
@@ -114,6 +117,7 @@ contract Route{
         newIndex = tickets.length;
         tickets.push(newTicket);
         commuter[newIndex] = msg.sender;
+        ticketsCount = ticketsCount + 1;
         emit ValueLogger(newIndex);
         return newIndex;
     }
@@ -123,11 +127,11 @@ contract Route{
         trip.reportedArrivalTimes++;
     }
 
-    function getNumberOfTrips() private view returns (Trip[]){
-        return trips;
+    function getNumberOfTrips() public view returns (uint){
+        return tripsCount;
     }
 
-    function getNumberOfTickets() private view returns(Ticket[]){
-        return tickets;
+    function getNumberOfTickets() public view returns(uint){
+        return ticketsCount;
     }
 }
