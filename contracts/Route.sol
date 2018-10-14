@@ -16,7 +16,10 @@ this will take care of the issue when the bus-operator does not complete the tri
 
 pragma solidity ^0.4.24;
 contract RouteCreator{
+    /* Contains all the routes that are deployed on the RINKEBY NETWORK */
     address[] public deployedRoutes;
+
+    /* This function calls the constructor of Route Contract which will create a new Route. */
     function createRoute(string routeID, uint count, bytes32[] description) public{
         address newRoute = new Route(msg.sender, routeID, count, description);
         deployedRoutes.push(newRoute);
@@ -59,6 +62,7 @@ contract Route{
     mapping (uint => address) commuter;
     uint totalAmount;
 
+    /* This modifier/function checks whether the sender is the manager of the contract or not.  */
     modifier restricted(){
         require(msg.sender == manager, "Only Manager is allowed");
         _;
@@ -69,6 +73,8 @@ contract Route{
         busStopCount = count;
         routeDescription = description;
     }    
+
+    /* In the above deployed Routes, this function creates a new trip  also it is restricted only to the manager*/
     function createTrip (string description, uint256 dateTime) public restricted {
         Trip memory newTrip = Trip ({
             tripDescription: description,
@@ -81,6 +87,8 @@ contract Route{
         trips.push(newTrip);
         tripsCount = tripsCount + 1; 
     }
+
+    /* When the trip ends, commuter may approve the trip. approving request is carried out by approveTrip function */
     function approveTrip(uint tripIndex, uint ticketIndex) public {
         Trip storage trip = trips[tripIndex];
         Ticket storage ticket = tickets[ticketIndex];
@@ -97,6 +105,10 @@ contract Route{
         ticket.isUsed = true;
         trip.approvers[ticketIndex] = true;
     }
+
+
+    /* This function is called when the user gets off the bus and want to complete the trip and 
+    the trip can only be completed if the this trip has been approved by almost 80% of the commuters*/
     function completeTrip(uint index) public restricted {
         Trip storage trip = trips[index];
         require(!trip.isComplete, "Tip must not complete");
@@ -106,6 +118,8 @@ contract Route{
         trip.isComplete = true;
         totalAmount = totalAmount + trip.amount;
     }
+
+    /* This is a payable function where the user is required to pay for the ticket. */
     function purchaseTicket(string description) public payable returns (uint) {
         require(msg.value>0, "Please pay for the ticket");
         uint newIndex;
@@ -121,6 +135,7 @@ contract Route{
         emit ValueLogger(newIndex);
         return newIndex;
     }
+
     function arrival(uint tripIndex, bytes32 busStop, uint256 arrivalTime) public {
         Trip storage trip = trips[tripIndex];
         trip.arrivalsTime[busStop] = arrivalTime;
