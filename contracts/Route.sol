@@ -1,19 +1,3 @@
-/* to do
-address the error: un implemented  feature : nested arrays not yet implemented
-
-Evaluation: read / write delay wrt to the number of commuters purchasing tickets
-and number of ongoing trips will be assessed using the rinkby testnet
-
-
-route description will be the list of bus-stops
-every trip will report its arrival time at every bus-stop
-
-if a trip has reported its arrival at more than 80% of the bus-stops, it will  be
-eligible for the completion
-
-this will take care of the issue when the bus-operator does not complete the trip
-*/
-
 pragma solidity ^0.4.24;
 contract RouteCreator{
     /* Contains all the routes that are deployed on the RINKEBY NETWORK */
